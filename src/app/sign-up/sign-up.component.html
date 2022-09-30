@@ -1,0 +1,23 @@
+<div class="sign-up p-4">
+  <div>
+    <div class="banner mt-5">
+      <h1>
+        Sign up
+      </h1>
+      <p>Hello, we are here to provide you a proper
+        guidelines to make our community safe
+        from covid-19.</p>
+    </div>
+  </div>
+  <form action="">
+    <app-personal-information *ngIf="step == 1"></app-personal-information>
+    <app-account-information *ngIf="step == 2"></app-account-information>
+    <app-password-setup *ngIf="step == 3"></app-password-setup>
+    <div class="button-container">
+      <button class="btns btns__primary" *ngIf="step < 3" (click)="proceed(0)">Next</button>
+      <button class="btns btns__primary" *ngIf="step == 3">Confirm</button>
+      <button class="btns btns__secondary rounded" routerLink="/login" *ngIf="step <= 1">Back to login</button>
+      <button class="btns btns__secondary rounded" *ngIf="step > 1" (click)="proceed(1)">Back</button>
+    </div>
+  </form>
+</div>

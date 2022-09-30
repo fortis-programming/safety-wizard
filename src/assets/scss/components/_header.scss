@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  h4 {
+    margin: auto 0;
+    color: $primary-color;
+    font-weight: 600;
+  }
+}

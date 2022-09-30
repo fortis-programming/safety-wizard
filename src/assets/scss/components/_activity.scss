@@ -1,0 +1,13 @@
+.activity {
+  .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid whitesmoke;
+    align-items: center;
+
+    p {
+      margin: auto 0;
+    }
+  }
+}

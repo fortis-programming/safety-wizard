@@ -1,0 +1,42 @@
+    <div class="form-container">
+      <h5 class="mt-4">Personal Information</h5>
+      <div class="form-floating">
+        <input type="text" [(ngModel)]="signupModel.firstname" name="firstname" #firstname="ngModel"
+          class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Fistname</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" [(ngModel)]="signupModel.middlename" name="middlename" #middlename="ngModel"
+          class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Middlename</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" [(ngModel)]="signupModel.lastname" name="lastname" #lastname="ngModel" class="form-control"
+          id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Lastname</label>
+      </div>
+      <div class="form-floating">
+        <select [(ngModel)]="signupModel.gender" name="gender" #gender="ngModel" class="form-select" id="floatingSelect"
+          aria-label="Floating label select example">
+          <option selected disabled>Select gender</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
+        <label for="floatingSelect">Gender</label>
+      </div>
+      <div class="form-floating">
+        <input type="date" [(ngModel)]="signupModel.birthdate" name="birthdate" #birthdate="ngModel"
+          class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Birthdate</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" [(ngModel)]="signupModel.homeAddress" name="homeAddress" #homeAddress="ngModel"
+          class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Home address</label>
+      </div>
+      <div class="form-floating">
+        <input type="phone" [(ngModel)]="signupModel.mobileNumber" name="mobileNumber" #mobileNumber="ngModel"
+          class="form-control" id="floatingInput" placeholder="name@example.com" maxlength="11">
+        <label for="floatingInput">Mobile number</label>
+      </div>
+    </div>

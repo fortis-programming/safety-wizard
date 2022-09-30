@@ -1,0 +1,38 @@
+.navbar {
+  padding: 0px;
+
+  .container-fluid {
+    padding: 0px;
+  }
+
+  .navbar-nav {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+
+
+    .nav-item {
+      text-align: center;
+      margin: auto;
+      width: 100%;
+
+      svg {
+        height: 30px;
+        color: gray;
+      }
+
+      a {
+        padding: 20px;
+      }
+
+      &:active,
+      .active {
+        background-color: #1b025e09;
+
+        svg {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
