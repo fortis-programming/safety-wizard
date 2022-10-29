@@ -1,3 +1,9 @@
 .main {
   height: 100vh;
+  gap: 0;
+
+  .router-container {
+    height: 100vh;
+    overflow: auto;
+  }
 }

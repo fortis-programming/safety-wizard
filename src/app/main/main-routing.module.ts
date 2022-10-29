@@ -8,16 +8,18 @@ import { MainComponent } from './main.component';
 import { route as HomeRoute } from '../home/home-route.module';
 import { route as ActivityRoute } from '../activity/activity-route.module';
 import { route as HealthCheckRoute } from '../health-check/health-check-route.module';
+import { route as QRScannerRoute } from '../qr-scanner/qr-scanner-route.module';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'qr-scanner', pathMatch: 'full' },
       ...HomeRoute,
       ...ActivityRoute,
-      ...HealthCheckRoute
+      ...HealthCheckRoute,
+      ...QRScannerRoute
     ]
   }
 ];

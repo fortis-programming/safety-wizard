@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SignupModel } from 'src/app/_shared/models/signup.model';
 
 @Component({
@@ -7,6 +7,8 @@ import { SignupModel } from 'src/app/_shared/models/signup.model';
   styleUrls: ['./personal-information.component.scss']
 })
 export class PersonalInformationComponent implements OnInit {
+  @Output() data = new EventEmitter<SignupModel>();
+
   signupModel: SignupModel = {
     firstname: '',
     middlename: '',
@@ -16,11 +18,25 @@ export class PersonalInformationComponent implements OnInit {
     homeAddress: '',
     mobileNumber: '',
     username: '',
-    email: ''
+    email: '',
+    password: '',
+    confirmPassword: '',
+    isScanner: false
   }
+
   constructor() { }
 
+  getMessage(): void {
+    this.data.emit(this.signupModel);
+  }
+
   ngOnInit(): void {
+    this.getMessage();
+  }
+
+  hasError(formControl: any): boolean {
+    this.getMessage();
+    return formControl.invalid && (formControl.dirty || formControl.touched);
   }
 
 }

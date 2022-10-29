@@ -1,3 +1,13 @@
-<div class="header border p-4 mb-4">
-  <h4>{{getTitle()}}</h4>
+<div class="header border p-3 px-4 mb-4">
+  <h5>{{getTitle()}}</h5>
+  <div class="user-icon dropdown">
+    <img role="button" src="../../../assets/images/profile.jpg" data-bs-toggle="dropdown"
+      class="border dropdown-toggle">
+
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><a class="dropdown-item" href="#">About</a></li>
+      <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+    </ul>
+  </div>
 </div>

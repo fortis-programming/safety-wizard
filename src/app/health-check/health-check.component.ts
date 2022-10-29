@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../main/header/header.service';
+import { HealthCheckService } from '../services/health-check.service';
+
+import { HealthCheckModel } from '../_shared/models/health-check.model';
+
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-health-check',
@@ -26,10 +32,18 @@ export class HealthCheckComponent implements OnInit {
     }
   ];
 
+  healthCheckModel: HealthCheckModel = {
+    temperature: 0,
+    symptoms: '',
+    date: ''
+  };
+
   selectedSymptoms: string[] = [];
 
   constructor(
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private healthCheck: HealthCheckService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,11 +56,46 @@ export class HealthCheckComponent implements OnInit {
     } else {
       this.selectedSymptoms.push(symptom);
     }
-    console.log(this.selectedSymptoms);
-    console.log(this.selectedSymptoms.indexOf(symptom));
   }
 
   checkSymptoms(symptom: string): boolean {
     return this.selectedSymptoms.includes(symptom);
+  }
+
+  nextStep(): void {
+    Swal.fire({
+      title: 'Enter your IP address',
+      input: 'number',
+      inputLabel: 'Your IP address',
+      showCancelButton: true
+    }).then((input) => {
+      if (input.value === '' || input.value === null)
+        alert('Please enter temperature value!');
+      else
+        this.submitSymptoms(input.value);
+    })
+  }
+
+  submitSymptoms(temperature: number): void {
+    this.healthCheckModel.date = new Date().toString();
+    this.healthCheckModel.temperature = temperature;
+    this.healthCheckModel.symptoms = this.selectedSymptoms.join(', ').toString();
+    this.healthCheck.saveUserSymptoms(this.healthCheckModel)
+      .then((result) => {
+        if (result) {
+          Swal.fire({
+            title: 'Health Complete',
+            text: 'You have successfully sumbmitted your status',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          }).then(() => {
+            this.router.navigate(['../app/home']);
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 }

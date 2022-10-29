@@ -2,10 +2,26 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: white;
+  justify-content: space-between;
+  overflow: show;
 
-  h4 {
+  h5 {
     margin: auto 0;
     color: $primary-color;
-    font-weight: 600;
+  }
+
+  .user-icon {
+    img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      bottom: 0;
+    }
   }
 }

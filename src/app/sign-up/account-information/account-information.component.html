@@ -2,17 +2,20 @@
       <h5 class="mt-4">Account Information</h5>
       <div class="form-floating">
         <input type="text" [(ngModel)]="signupModel.username" name="username" #username="ngModel" class="form-control"
-          id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Username</label>
+          id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(username)" for="floatingInput">Username</label>
+        <label *ngIf="hasError(username)" class="text-danger">Username is required</label>
       </div>
       <div class="form-floating">
         <input type="text" [(ngModel)]="signupModel.email" name="email" #email="ngModel" class="form-control"
-          id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email</label>
+          id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(email)" for="floatingInput">Email</label>
+        <label *ngIf="hasError(email)" class="text-danger">Email is required</label>
       </div>
       <div class="form-floating">
         <input type="phone" [(ngModel)]="signupModel.mobileNumber" name="mobileNumber" #mobileNumber="ngModel"
-          class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Mobile number</label>
+          class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(mobileNumber)" for="floatingInput">Mobile number</label>
+        <label *ngIf="hasError(mobileNumber)" class="text-danger">Mobile number is required</label>
       </div>
     </div>
