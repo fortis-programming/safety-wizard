@@ -1,14 +1,22 @@
 <div class="health-check px-4">
-  <strong>Select if you have the following symptoms.</strong>
-  <div class="options-container mt-4">
-    <div class="options border rounded p-3" *ngFor="let symptom of symptoms" (click)="selectSymptoms(symptom.name)">
-      <strong>{{symptom.name}}</strong>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"
-        *ngIf="checkSymptoms(symptom.name)">
-        <path fill-rule="evenodd"
-          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-          clip-rule="evenodd" />
-      </svg>
+  <div>
+    <strong>Select if you have the following symptoms.</strong>
+
+    <div class="options-container mt-4">
+      <div class="options border rounded p-3" *ngFor="let symptom of symptoms" (click)="selectSymptoms(symptom.name)">
+        <strong>{{symptom.name}}</strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"
+          *ngIf="checkSymptoms(symptom.name)">
+          <path fill-rule="evenodd"
+            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+            clip-rule="evenodd" />
+        </svg>
+      </div>
     </div>
+  </div>
+
+  <div class="d-flex flex-column gap-2 button-container mt-4" *ngIf="selectedSymptoms.length > 0">
+    <button class="btns btns__primary" (click)="nextStep()">Submit</button>
+    <button class="btns btns-secondary border">Cancel</button>
   </div>
 </div>

@@ -2,41 +2,48 @@
       <h5 class="mt-4">Personal Information</h5>
       <div class="form-floating">
         <input type="text" [(ngModel)]="signupModel.firstname" name="firstname" #firstname="ngModel"
-          class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Fistname</label>
+          class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(firstname)" for="floatingInput">Fistname</label>
+        <label *ngIf="hasError(firstname)" class="text-danger">Firstname is required</label>
       </div>
       <div class="form-floating">
         <input type="text" [(ngModel)]="signupModel.middlename" name="middlename" #middlename="ngModel"
-          class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Middlename</label>
+          class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(middlename)" for="floatingInput">Middlename</label>
+        <label *ngIf="hasError(middlename)" class="text-danger">Middlename is required</label>
       </div>
       <div class="form-floating">
         <input type="text" [(ngModel)]="signupModel.lastname" name="lastname" #lastname="ngModel" class="form-control"
-          id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Lastname</label>
+          id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(lastname)" for="floatingInput">Lastname</label>
+        <label *ngIf="hasError(lastname)" class="text-danger">Lastname is required</label>
       </div>
       <div class="form-floating">
         <select [(ngModel)]="signupModel.gender" name="gender" #gender="ngModel" class="form-select" id="floatingSelect"
-          aria-label="Floating label select example">
+          aria-label="Floating label select example" required>
           <option selected disabled>Select gender</option>
-          <option value="1">Male</option>
-          <option value="2">Female</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
         </select>
-        <label for="floatingSelect">Gender</label>
+        <label *ngIf="!hasError(gender)" for="floatingInput">Gender</label>
+        <label *ngIf="hasError(gender)" class="text-danger">Gender is required</label>
       </div>
       <div class="form-floating">
         <input type="date" [(ngModel)]="signupModel.birthdate" name="birthdate" #birthdate="ngModel"
-          class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Birthdate</label>
+          class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(birthdate)" for="floatingInput">Birthdate</label>
+        <label *ngIf="hasError(birthdate)" class="text-danger">Birthdate is required</label>
       </div>
       <div class="form-floating">
         <input type="text" [(ngModel)]="signupModel.homeAddress" name="homeAddress" #homeAddress="ngModel"
-          class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Home address</label>
+          class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <label *ngIf="!hasError(homeAddress)" for="floatingInput">Address</label>
+        <label *ngIf="hasError(homeAddress)" class="text-danger">Address is required</label>
       </div>
       <div class="form-floating">
         <input type="phone" [(ngModel)]="signupModel.mobileNumber" name="mobileNumber" #mobileNumber="ngModel"
           class="form-control" id="floatingInput" placeholder="name@example.com" maxlength="11">
-        <label for="floatingInput">Mobile number</label>
+        <label *ngIf="!hasError(mobileNumber)" for="floatingInput">Mobile Number</label>
+        <label *ngIf="hasError(mobileNumber)" class="text-danger">Mobile number is required</label>
       </div>
     </div>
