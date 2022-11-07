@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       .then((result) => {
 
         message = result.split('/');
-        
+
         if (message[0] === 'auth') {
           message = result.split('-');
           message = message.join(' ').split('/');
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
           if (modal_icon)
             this.router.navigate(['app']);
-        
+
         })
 
       }).catch((error) => {

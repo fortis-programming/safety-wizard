@@ -10,19 +10,38 @@ import { route as ActivityRoute } from '../activity/activity-route.module';
 import { route as HealthCheckRoute } from '../health-check/health-check-route.module';
 import { route as QRScannerRoute } from '../qr-scanner/qr-scanner-route.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: MainComponent,
-    children: [
-      { path: '', redirectTo: 'qr-scanner', pathMatch: 'full' },
-      ...HomeRoute,
-      ...ActivityRoute,
-      ...HealthCheckRoute,
-      ...QRScannerRoute
-    ]
-  }
-];
+let routes: Routes = [];
+
+if (sessionStorage.getItem('_isScanner') === 'true') {
+  routes = [
+    {
+      path: '',
+      component: MainComponent,
+      children: [
+        { path: '', redirectTo: 'qr-scanner', pathMatch: 'full' },
+        ...HomeRoute,
+        ...ActivityRoute,
+        ...HealthCheckRoute,
+        ...QRScannerRoute
+      ]
+    }
+  ];
+}
+else {
+  routes = [
+    {
+      path: '',
+      component: MainComponent,
+      children: [
+        { path: '', redirectTo: 'home', pathMatch: 'full' },
+        ...HomeRoute,
+        ...ActivityRoute,
+        ...HealthCheckRoute,
+        ...QRScannerRoute
+      ]
+    }
+  ];
+}
 
 @NgModule({
   declarations: [],
@@ -31,4 +50,5 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
+
 export class MainRoutingModule { }

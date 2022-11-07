@@ -1,12 +1,126 @@
-<!-- <div class=" px-4" style="background-color: red; height: 100vh; width: 100vw;">
-  <div class="card-container">
-    test
-    ngx-scanner-qrcode
+<div class="home qr-scanner px-4">
+  <div class="card-container mb-2">
+
     <div style="width: 100%; overflow: hidden;">
-      <ngx-scanner-qrcode #action="scanner" [config]="config" (error)="onError($event)">
+      <ngx-scanner-qrcode #action="scanner" [config]="config" (error)="onError($event)"
+        [hidden]="!action.isStart || !action.data">
       </ngx-scanner-qrcode>
     </div>
 
-    <p class="data">{{ action.data | async }}</p>
-  </div> -->
-test
+    <!-- <div class="card-secondary rounded border p-4" style="cursor: default;">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-success"
+          style="height: 24px; width: 24px;">
+          <path fill-rule="evenodd"
+            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+            clip-rule="evenodd" />
+        </svg>
+        <label>Is safe</label>
+      </div>
+    </div> -->
+    <button class="btns__primary p-3 rounded" *ngIf="action.data | async"
+      (click)="getBarcodeData(action.data); action.stop()">SCAN</button>
+
+    <div class="card-secondary rounded border p-4" (click)="action.isStart? action.stop(): action.start()">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 primary">
+          <path fill-rule="evenodd"
+            d="M3 4.875C3 3.839 3.84 3 4.875 3h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013 9.375v-4.5zM4.875 4.5a.375.375 0 00-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 00.375-.375v-4.5a.375.375 0 00-.375-.375h-4.5zm7.875.375c0-1.036.84-1.875 1.875-1.875h4.5C20.16 3 21 3.84 21 4.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 01-1.875-1.875v-4.5zm1.875-.375a.375.375 0 00-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 00.375-.375v-4.5a.375.375 0 00-.375-.375h-4.5zM6 6.75A.75.75 0 016.75 6h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75A.75.75 0 016 7.5v-.75zm9.75 0A.75.75 0 0116.5 6h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zM3 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.035-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013 19.125v-4.5zm1.875-.375a.375.375 0 00-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 00.375-.375v-4.5a.375.375 0 00-.375-.375h-4.5zm7.875-.75a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm6 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zM6 16.5a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm9.75 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm-3 3a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75zm6 0a.75.75 0 01.75-.75h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75z"
+            clip-rule="evenodd" />
+        </svg>
+        <label>{{action.isStart ? 'Close Scanner' : 'Open Scanner'}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion" id="accordionPanelsStayOpenExample"
+    *ngIf="userInformation.firstname != null && userInformation.firstname != ''">
+    <div class="accordion-item" *ngIf="healthCheckModel.symptoms == ''">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-success"
+              style="height: 24px; width: 24px;">
+              <path fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd" />
+            </svg>
+            <label class="mx-2">Is Safe</label>
+          </div>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+        aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+          <strong>{{ userInformation.firstname + ' ' + userInformation.lastname }}</strong>, is negative from any
+          covid-19
+          symptoms. Last
+          detected
+          health check
+          was 07-11-2022
+          with a temperature of 36.5.
+          Stay safe!
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item" *ngIf="healthCheckModel.symptoms != ''">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="text-danger" style="height: 24px; width: 24px;">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
+
+            <label class="mx-2">User has symptoms!</label>
+          </div>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+        aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+          <strong>{{ healthCheckModel.symptoms }}</strong> was detected. Kindly contact health personel to guide the
+          patient, you can also the following information for contact tracing.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          <label>User/Contact information</label>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+        aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
+          <table>
+            <tr>
+              <td>Name: </td>
+              <td><strong>{{userInformation.firstname +' '+ userInformation.lastname}}</strong></td>
+            </tr>
+            <tr>
+              <td>Gender: </td>
+              <td><strong>{{userInformation.gender}}</strong></td>
+            </tr>
+            <tr>
+              <td>Contact #: </td>
+              <td><strong>{{userInformation.mobileNumber}}</strong></td>
+            </tr>
+            <tr>
+              <td>Email: </td>
+              <td><strong>{{userInformation.email}}</strong></td>
+            </tr>
+            <tr>
+              <td>Address: </td>
+              <td><strong>{{userInformation.homeAddress}}</strong></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
