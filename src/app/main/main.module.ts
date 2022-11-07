@@ -9,7 +9,9 @@ import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
-    MainComponent, NavigationComponent, HeaderComponent
+    MainComponent,
+    NavigationComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,23 @@
+.qr-scanner {
+
+  .card-secondary {
+    cursor: default !important;
+
+    .icon {
+      svg {
+        color: green !important;
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    gap: 1rem;
+
+    tr td {
+      padding-right: 1rem;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
+  }
+}

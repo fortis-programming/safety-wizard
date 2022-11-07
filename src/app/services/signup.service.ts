@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { app, firestoreInit } from './firebase.service';
 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { SignupModel } from '../_shared/models/signup.model';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 const auth = getAuth(app);
 
@@ -13,29 +11,13 @@ const auth = getAuth(app);
   providedIn: 'root'
 })
 export class SignupService {
+
   constructor(
-    private httpClient: HttpClient
   ) { }
 
-  // createUserWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //   // Signed in
-  //   const user = userCredential.user;
-  //   // ...
-  // })
-  //   .catch ((error) => {
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  //   // ..
-  // });
-
-  // post(): Observable<any> {
-  //   return this.httpClient.post("https://baguio-visita.sds.dev/VisitaValidation.aspx/ValidateUser", JSON.stringify({
-  //     id: "test-123-test-z1z2z4",
-  //     userId: "test-test2",
-  //     fullname: "test-tes2"
-  //   }), { responseType: 'text' });
-  // }
+  isAuthenticated() {
+    return !!sessionStorage.getItem('_token');
+  }
 
   async loginUser(email: string, password: string): Promise<string> {
     return new Promise<string>(async (resolve) => {
@@ -44,6 +26,11 @@ export class SignupService {
           // Signed in 
           const user = userCredential.user;
           sessionStorage.setItem('_userid', user.uid);
+
+          this.getUserStatus(user.uid).then(response => {
+            sessionStorage.setItem('_isScanner', response);
+          });
+
           resolve(JSON.parse(JSON.stringify(user.refreshToken)));
           // ...
         })
@@ -53,6 +40,11 @@ export class SignupService {
           resolve(JSON.parse(JSON.stringify(errorCode)));
         });
     });
+  }
+
+  async getUserStatus(userId: string): Promise<string> {
+    const docSnap = await getDoc(doc(firestoreInit, 'users', userId));
+    return (docSnap.exists() ? docSnap.data()['isScanner'] : '');
   }
 
   async signUpUser(email: string, password: string, userInformation: SignupModel): Promise<string> {
