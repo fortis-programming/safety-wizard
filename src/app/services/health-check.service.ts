@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
+import { Observable } from 'rxjs';
+import { GetEstablishmentModel } from '../_shared/get-establishment.model';
+import { ActivityLogModel } from '../_shared/models/activitylog.model';
 import { HealthCheckModel } from '../_shared/models/health-check.model';
 import { SignupModel } from '../_shared/models/signup.model';
 
@@ -43,5 +46,42 @@ export class HealthCheckService {
   async checkUserHealth(userId: string): Promise<HealthCheckModel> {
     const docSnap = await getDoc(doc(firestoreInit, 'symptoms', userId));
     return (docSnap.exists() ? docSnap.data() : {}) as HealthCheckModel;
+  }
+
+
+  //   // Add a new document with a generated id
+  //   const newCityRef = doc(collection(db, "cities"));
+
+  // // later...
+  // await setDoc(newCityRef, data);
+  async saveActivityToLogs(activityLogData: ActivityLogModel): Promise<boolean> {
+    console.log(activityLogData)
+    await this.getEstablishmentDetails(JSON.parse(JSON.stringify(sessionStorage.getItem('_userid'))))
+      .then((response) => {
+        activityLogData.address = response.homeAddress;
+        activityLogData.establishmentDescription = response.establishmentDescription;
+        activityLogData.establishmentId = JSON.parse(JSON.stringify(sessionStorage.getItem('_userid')));
+      });
+
+    return await setDoc(doc(collection(firestoreInit, 'logs')), activityLogData)
+      .then(() => true)
+      .catch(() => false);
+  }
+
+  async getEstablishmentDetails(userId: string): Promise<GetEstablishmentModel> {
+    const docSnap = await getDoc(doc(firestoreInit, 'users', userId));
+    return (docSnap.exists() ? docSnap.data() : {}) as GetEstablishmentModel;
+  }
+
+  activityLogList: ActivityLogModel[] = [];
+  async getUserActivityLogs(): Promise<ActivityLogModel[]> {
+    this.activityLogList = [];
+    const q = query(collection(firestoreInit, 'logs'), where('userId', '==', JSON.parse(JSON.stringify(sessionStorage.getItem('_userid')))));
+    await onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.activityLogList.push(JSON.parse(JSON.stringify(doc.data())));
+      });
+    });
+    return this.activityLogList;
   }
 }

@@ -20,7 +20,8 @@ export class AccountInformationComponent implements OnInit {
     email: '',
     password: '',
     confirmPassword: '',
-    isScanner: false
+    isScanner: false,
+    establishmentDescription: ''
   }
 
   constructor() { }
