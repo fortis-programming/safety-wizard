@@ -23,7 +23,8 @@ export class PasswordSetupComponent implements OnInit {
     email: '',
     password: '',
     confirmPassword: '',
-    isScanner: false
+    isScanner: false,
+    establishmentDescription: ''
   }
 
   constructor() { }

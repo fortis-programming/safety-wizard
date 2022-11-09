@@ -12,4 +12,5 @@ export interface SignupModel {
   password: string;
   confirmPassword: string;
   isScanner: boolean;
+  establishmentDescription: string;
 }
