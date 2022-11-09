@@ -6,22 +6,10 @@
         [hidden]="!action.isStart || !action.data">
       </ngx-scanner-qrcode>
     </div>
-
-    <!-- <div class="card-secondary rounded border p-4" style="cursor: default;">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-success"
-          style="height: 24px; width: 24px;">
-          <path fill-rule="evenodd"
-            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-            clip-rule="evenodd" />
-        </svg>
-        <label>Is safe</label>
-      </div>
-    </div> -->
     <button class="btns__primary p-3 rounded" *ngIf="action.data | async"
       (click)="getBarcodeData(action.data); action.stop()">SCAN</button>
 
-    <div class="card-secondary rounded border p-4" (click)="action.isStart? action.stop(): action.start()">
+    <div class="card-secondary rounded border p-4" (click)="action.isStart? action.stop() : action.start()">
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 primary">
           <path fill-rule="evenodd"
@@ -123,4 +111,6 @@
       </div>
     </div>
   </div>
+  <div class="card-primary primary-bg rounded border p-4 text-center" (click)="saveToLog()"
+    *ngIf="userInformation.lastname != '' || healthCheckModel.symptoms != ''">Save to log</div>
 </div>

@@ -21,7 +21,8 @@ export class PersonalInformationComponent implements OnInit {
     email: '',
     password: '',
     confirmPassword: '',
-    isScanner: false
+    isScanner: false,
+    establishmentDescription: ''
   }
 
   constructor() { }
