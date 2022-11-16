@@ -9,26 +9,52 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 //  SERVICES
 import { AuthGuardService } from './services/auth-guard.service';
 
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'sign-up',
-    component: SignUpComponent
-  },
-  {
-    path: 'app',
-    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
-    canActivate: [AuthGuardService]
-  }
-];
+let routes: Routes = [];
+
+if (sessionStorage.getItem('_isScanner') == 'true') {
+  routes = [
+    {
+      path: '',
+      redirectTo: 'login',
+      pathMatch: 'full'
+    },
+    {
+      path: 'login',
+      component: LoginComponent
+    },
+    {
+      path: 'sign-up',
+      component: SignUpComponent
+    },
+    {
+      path: 'app',
+      loadChildren: () => import('./main-scanner/main-scanner.module').then((m) => m.MainScannerModule),
+      canActivate: [AuthGuardService]
+    }
+  ];
+}
+else {
+  routes = [
+    {
+      path: '',
+      redirectTo: 'login',
+      pathMatch: 'full'
+    },
+    {
+      path: 'login',
+      component: LoginComponent
+    },
+    {
+      path: 'sign-up',
+      component: SignUpComponent
+    },
+    {
+      path: 'app',
+      loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+      canActivate: [AuthGuardService]
+    }
+  ];
+}
 
 @NgModule({
   declarations: [],

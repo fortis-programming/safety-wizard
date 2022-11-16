@@ -30,7 +30,7 @@ export class HealthCheckService {
 
   async checkHealthSubmission(): Promise<boolean> {
     const docSnap = await getDoc(doc(firestoreInit, 'symptoms', this.userId));
-    return (docSnap.exists() ? Date.parse(docSnap.data()['date']) > 60 * 60 * 24 * 1000 : false) as boolean;
+    return (docSnap.exists() ? (Date.now() - Date.parse(docSnap.data()['date'])) >= (60 * 60 * 24 * 1000) : false) as boolean;
   }
 
   async getHealthStatus(): Promise<HealthCheckModel> {
@@ -48,12 +48,6 @@ export class HealthCheckService {
     return (docSnap.exists() ? docSnap.data() : {}) as HealthCheckModel;
   }
 
-
-  //   // Add a new document with a generated id
-  //   const newCityRef = doc(collection(db, "cities"));
-
-  // // later...
-  // await setDoc(newCityRef, data);
   async saveActivityToLogs(activityLogData: ActivityLogModel): Promise<boolean> {
     console.log(activityLogData)
     await this.getEstablishmentDetails(JSON.parse(JSON.stringify(sessionStorage.getItem('_userid'))))
